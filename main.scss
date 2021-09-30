@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap");
+
+$main: #fff;
+$main-shadow: rgba(255, 255, 255, 0.3);
+$white-o: rgba(255, 255, 255, 0.03);
+$secondary: #101010;
+$purple: rgb(122, 0, 245);
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: $secondary;
+  transition: 300ms;
+  font-family: "Quicksand", sans-serif;
+}
+
+h1 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: $main;
+
+  a {
+    color: $main;
+  }
+}
+
+h4 {
+  color: $main;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
+.color-animation {
+  animation: 0.5s color linear infinite;
+  background-color: $purple;
+
+  .game {
+    transform: rotate(-180deg);
+
+    .game-over {
+      transform: rotate((-180deg));
+    }
+  }
+}
+
+@keyframes color {
+  0% {
+    filter: hue-rotate(0);
+  }
+  50% {
+    backdrop-filter: hue-rotate(360deg);
+  }
+}
+
+.game {
+  user-select: none;
+  position: relative;
+  width: 80%;
+  height: 525px;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border: 1px solid $main;
+  overflow: hidden;
+
+  .score {
+    color: $main;
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .player {
+    width: 50px;
+    height: 50px;
+    background: $main;
+    position: absolute;
+    top: calc(525px - 100px);
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 50px $main-shadow;
+  }
+
+  .blocks {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    animation: 2s moving linear infinite;
+
+    .block {
+      height: 25px;
+      background: $main;
+      position: absolute;
+      box-shadow: 0 0 15px $main-shadow;
+
+      &.left {
+        top: 0;
+        left: 0;
+        width: 200px;
+      }
+      &.right {
+        bottom: 0;
+        width: 50px;
+        right: 0;
+      }
+    }
+  }
+
+  @keyframes moving {
+    from {
+      top: -80%;
+    }
+    to {
+      top: 100%;
+    }
+  }
+
+  .game-over {
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: $white-o;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    color: $main;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    button {
+      background: $main;
+      color: $secondary;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      margin-top: 1rem;
+      border-radius: 0.25rem;
+      font-size: 1.5rem;
+      animation: 1s padding infinite;
+      animation-delay: 1s;
+      transition: 300ms;
+
+      &:hover {
+        animation: none;
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    &.game-over-active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @keyframes padding {
+      0% {
+        padding: 0.25rem 0.5rem;
+      }
+      50% {
+        padding: 0.5rem;
+      }
+      100% {
+        padding: 0.25rem 0.5rem;
+      }
+    }
+  }
+
+  &.game-game-over-active {
+    pointer-events: none;
+    .blocks {
+      animation: none;
+    }
+  }
+}
