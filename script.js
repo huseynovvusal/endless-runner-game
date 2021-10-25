@@ -24,6 +24,14 @@ window.addEventListener("load", () => {
   game.addEventListener("mouseup", () => {
     mousedown = false;
   });
+  
+  game.addEventListener("touchstart", () => {
+    mousedown = true;
+    game.addEventListener("touchmove", move);
+  });
+  game.addEventListener("touchend", () => {
+    mousedown = false;
+  });
 
   retryButton.addEventListener("click", retryAgain);
 
